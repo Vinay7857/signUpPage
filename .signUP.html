@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIGN UP</title>
+<style>
+body {
+    background-color: #121212;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h2 {
+    color: aquamarine;
+    font-weight: bold;
+    font-size: 48px;
+    margin: 0;
+    text-align: center;
+}
+
+div {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    padding: 40px;
+    border: 1px solid #444;
+    position: relative;
+}
+
+h4 {
+    color: rgb(9, 239, 147);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.email, .cPass {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    background-color: #222;
+    color: #fff;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.cPass {
+    margin-top: 0;
+}
+
+.hShow {
+    cursor: pointer;
+    position: absolute;
+    right: 50px;
+    top: 265px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 20px;
+}
+
+.submit {
+    background-color: #00FFFF;
+    color: #000;
+    height: 50px;
+    width: 100%;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+    background-color: #00e0e0;
+}
+
+.error {
+    color: rgb(255, 0, 0);
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+    <body>
+        <form onsubmit="return check()">
+        <div>
+            <h2>SIGN UP</h2>
+            <h4>Email</h4>
+            <input type="email" placeholder="Enter email here" class="email" required/>
+            <h4>Password</h4>
+            <input type="password" placeholder="Enter password here" class="email"   required/>
+
+            <button type="button" class="hShow" onclick="passwordSH()">
+                <img src="hide.png" width="20px" height="20px" class="errImg"/>
+            </button>
+
+            <input type="password" placeholder="Confirm password" class="cPass" required  />
+<br>
+            <h3 class="error"></h3>
+            <input type="submit" value="Sign Up" class="submit" onclick="validatePass()">
+
+        </div>
+        </form>
+
+<script type="text/javascript">
+         
+         var pass= document.getElementsByClassName("email")[1];
+         var cPass=document.getElementsByClassName("cPass")[0];
+        var err=1;
+    function passwordSH(){
+        var errImg=document.getElementsByClassName("errImg")[0];
+        ImgPro=errImg.getAttribute("src");
+
+        
+       if(ImgPro=="hide.png"){
+        errImg.setAttribute("src","view.png" );
+        document.getElementsByClassName("email")[1].setAttribute("type" ,"text");
+       }else{
+         errImg.setAttribute("src","hide.png" );
+         document.getElementsByClassName("email")[1].setAttribute("type" ,"password")
+       }
+
+    }
+
+     const lowerCase = new RegExp('(?=.*[a-z])');
+     const upperCase = new RegExp('(?=.*[A-Z])');
+     const number = new RegExp('(?=.*[0-9])');
+     const specialChar = new RegExp('(?=.*[!@#\$%\^&\*])');
+     const eightChar = new RegExp('(?=.{8,})');
+
+
+    function validatePass(){
+    
+      if(pass.value!=cPass.value){
+          document.getElementsByClassName("error")[0].innerHTML="Confirm password doesn't match!";
+          err=0;
+        }else{
+            if(eightChar.test(pass.value) && specialChar.test(pass.value) && number.test(pass.value) && upperCase.test(pass.value) && lowerCase.test(pass.value) ){
+              document.getElementsByClassName("error")[0].innerHTML=" ";
+              err=1
+            }else{
+                document.getElementsByClassName("error")[0].innerHTML="Password must be 8+ characters, with at least 1 uppercase, 1 lowercase, 1 digit, and 1 special character.";
+                err=0;
+            }
+
+        }
+     
+
+    }
+
+    function check(){
+        if(err==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
+    </body>
+</html>
